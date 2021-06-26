@@ -1,0 +1,50 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+ </head>
+
+ <body>
+     <div id="app">
+         <input v-model="question" />
+         <p>{{ answer }}</p>
+     </div>
+     <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+     <script src="https://unpkg.com/vue@next"></script>
+     <script>
+         const watchExample = {
+             data() {
+                 return {
+                     question: "",
+                     answer: ""
+                 }
+             },
+             watch: {
+                 question(newValue, oldValue) {
+                     if (newValue.indexOf("?") > -1) {
+                         this.getAnswer();
+                     }
+                 }
+             },
+             methods: {
+                 getAnswer() {
+                     axios
+                         .get('https://yesno.wtf/api')
+                         .then(response => {
+                             this.answer = response.data.answer
+                         })
+                         .catch(error => {
+                             this.answer = 'Error! Could not reach the API. ' + error
+                         })
+                 }
+             }
+         };
+
+         var vm = Vue.createApp(watchExample).mount("#app");
+     </script>
+ </body>
+
+ </html>

@@ -1,0 +1,45 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+ </head>
+
+ <body>
+     <div id="computed-basics">
+         <p>Has published books:</p>
+         <span>{{ showBookMessage }}</span>
+     </div>
+     <script src="https://unpkg.com/vue@next"></script>
+     <script>
+         var vm = Vue.createApp({
+             data() {
+                 return {
+                     author: {
+                         name: 'John Doe',
+                         books: [
+                             'Vue 2 - Advanced Guide',
+                             'Vue 3 - Basic Guide',
+                             'Vue 4 - The Mystery'
+                         ]
+                     }
+                 }
+             },
+             computed:{
+                 showBookMessage(){
+                     if(this.author.books.length > 0){
+                         return 'Yes';
+                     }
+                     else{
+                         return 'No';
+                     }
+                 }
+             }
+         }).mount("#computed-basics");
+     </script>
+
+ </body>
+
+ </html>
